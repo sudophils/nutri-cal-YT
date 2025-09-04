@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍽️ PHIXLAB Calories AI
 
-## Getting Started
+A simple, mobile-first landing page that allows users to upload or capture meal photos and get instant macronutrient analysis (protein, carbs, fat, calories) via AI.
 
-First, run the development server:
+## ✨ Features
 
+- **Mobile-First Design**: Optimized for mobile devices with responsive design
+- **Image Upload**: Upload existing photos from device gallery
+- **Camera Capture**: Take photos directly using device camera
+- **Instant Analysis**: Get nutrition breakdown in seconds
+- **Beautiful UI**: Clean, modern interface with Tailwind CSS
+- **Dark Mode Support**: Automatic dark/light theme support
+
+## 🚀 Getting Started
+
+1. **Install dependencies:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Run the development server:**
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Open your browser:**
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+- **Image Processing**: Built-in Next.js Image component
+- **API**: Next.js API Routes
 
-To learn more about Next.js, take a look at the following resources:
+## 📱 How to Use
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Upload or Capture**: Choose to upload an existing photo or take a new one
+2. **Analyze**: Click the "Analyze Nutrition" button
+3. **View Results**: See instant breakdown of calories, protein, carbs, and fat
+4. **Repeat**: Analyze another meal with the reset button
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 API Integration
 
-## Deploy on Vercel
+The app currently uses mock data for nutrition analysis. To integrate with a real AI service:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Replace the mock function in `/src/app/api/analyze/route.ts`
+2. Add your AI service API key to environment variables
+3. Update the analysis logic with your preferred service (OpenAI Vision, Google Vision, etc.)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Example integration:
+```typescript
+// Add to .env.local
+AI_SERVICE_API_KEY=your_api_key_here
+
+// Update the analysis function
+async function analyzeNutritionWithAI(base64Image: string) {
+  const response = await fetch('YOUR_AI_SERVICE_ENDPOINT', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.AI_SERVICE_API_KEY}`,
+    },
+    body: JSON.stringify({
+      image: base64Image,
+      prompt: "Analyze nutrition content..."
+    }),
+  });
+  return response.json();
+}
+```
+
+## 🚀 Deployment
+
+Deploy easily on Vercel:
+
+```bash
+npm i -g vercel
+vercel
+```
+
+Or use the [Vercel Platform](https://vercel.com/new) for one-click deployment.
+
+## 📝 Project Structure
+
+```
+src/
+├── app/
+│   ├── api/analyze/
+│   │   └── route.ts          # Nutrition analysis API endpoint
+│   ├── globals.css           # Global styles
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Main landing page
+└── ...
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
